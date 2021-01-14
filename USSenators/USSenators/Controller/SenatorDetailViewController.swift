@@ -47,6 +47,7 @@ class SenatorDetailViewController: UIViewController {
             senatorProfileImage.image = #imageLiteral(resourceName: "republican")
         }
         
+        //Style some views
         senatorProfileImage.layer.cornerRadius = 50
         senatorProfileImage.layer.borderWidth = 2.0
         senatorProfileImage.layer.borderColor = #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 1)
