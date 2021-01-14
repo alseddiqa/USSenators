@@ -74,9 +74,21 @@ class SenatorsViewController: UIViewController {
         switch segue.identifier {
         case "detailsSegue":
             if let row = tableView.indexPathForSelectedRow?.row {
-                let senator = senatorsList[row]
-                let destinationVC = segue.destination as! SenatorDetailViewController
-                destinationVC.senator = senator
+                if all {
+                    let senator = senatorsList[row]
+                    let destinationVC = segue.destination as! SenatorDetailViewController
+                    destinationVC.senator = senator
+                } else if democrat {
+                    let senator = democartsList[row]
+                    let destinationVC = segue.destination as! SenatorDetailViewController
+                    destinationVC.senator = senator
+                }
+                else {
+                    let senator = republicansList[row]
+                    let destinationVC = segue.destination as! SenatorDetailViewController
+                    destinationVC.senator = senator
+                }
+                
             }
         default:
             preconditionFailure("Unexpected segue identifier.")
