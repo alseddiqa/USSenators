@@ -16,9 +16,14 @@ class SenatorsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // assign delegate and data source for the table
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        //read json file
         let data = readLocalFile(forName: "us_senatorsj")
+        
+        //parse result data
         self.parse(jsonData: data!)
     }
     
@@ -47,8 +52,7 @@ class SenatorsViewController: UIViewController {
             let decodedData = try JSONDecoder().decode(Senators.self,
                                                        from: jsonData)
             print(decodedData.objects)
-            print("===================================")
-            
+            print("---end json---")
             self.senatorsList = decodedData.objects
             self.tableView.reloadData()
         } catch {

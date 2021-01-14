@@ -9,6 +9,7 @@ import UIKit
 
 class SenatorCell: UITableViewCell {
 
+    //Declaring outlets for the cell
     @IBOutlet var departmentLabel: UILabel!
     @IBOutlet var partyLabel: UILabel!
     @IBOutlet var senatorProfileImage: UIImageView!
@@ -25,9 +26,9 @@ class SenatorCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    //styling out the cell
     override func layoutSubviews() {
-        senatorProfileImage.layer.cornerRadius = 50
-        senatorProfileImage.layer.cornerRadius = 50
+        senatorProfileImage.layer.cornerRadius = 30
         senatorProfileImage.layer.borderWidth = 2.0
         senatorProfileImage.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         senatorProfileImage.layer.masksToBounds = true
@@ -35,6 +36,7 @@ class SenatorCell: UITableViewCell {
 
 }
 
+//a helper extension to add rounded corners view
 extension UIView{
     
     //MARK: - Corner Radius

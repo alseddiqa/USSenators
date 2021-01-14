@@ -9,8 +9,10 @@ import UIKit
 
 class SenatorDetailViewController: UIViewController {
 
+    //Senator object that will be set wheneve a cell is clicked on from the displayed list
     var senator: Object!
     
+    //Declaring view outlets
     @IBOutlet var senatorProfileImage: UIImageView!
     @IBOutlet var senatorNameLabel: UILabel!
     @IBOutlet var addressLabel: UILabel!
@@ -27,6 +29,7 @@ class SenatorDetailViewController: UIViewController {
         setUpView()
     }
     
+    // Set up the view with information about the senator
     func setUpView() {
         self.navigationItem.title = senator.person.firstname + " " + senator.person.lastname
         senatorNameLabel.text = senator.person.name
@@ -57,6 +60,7 @@ class SenatorDetailViewController: UIViewController {
 
     }
     
+    // A function to open senator's website in Safari
     @IBAction func openWebsite(_ sender: UIButton) {
         if let web = sender.titleLabel?.text {
             guard let url = URL(string: web) else { return }
