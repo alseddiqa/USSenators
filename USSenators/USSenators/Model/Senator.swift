@@ -9,7 +9,24 @@ import Foundation
 
 
 // MARK: - Senator Object
-struct Object: Codable {
+struct Object: Codable, Comparable {
+    
+    static func < (lhs: Object, rhs: Object) -> Bool {
+        if lhs.person.lastname < rhs.person.lastname {
+            return true
+        }else {
+            return false
+        }
+    }
+    
+    static func == (lhs: Object, rhs: Object) -> Bool {
+        if lhs.person.lastname == rhs.person.lastname {
+            return true
+        }else {
+            return false
+        }
+    }
+    
     let caucus: Party?
     let congressNumbers: [Int]
     let current: Bool

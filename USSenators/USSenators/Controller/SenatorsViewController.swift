@@ -12,6 +12,12 @@ class SenatorsViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     var senatorsList = [Object]()
+    var democartsList = [Object]()
+    var republicansList = [Object]()
+    
+    var democrat = false
+    var repub = false
+    var all = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +30,9 @@ class SenatorsViewController: UIViewController {
         let data = readLocalFile(forName: "us_senatorsj")
         
         //parse result data
-        self.parse(jsonData: data!)
+        if let data = data {
+            self.parse(jsonData: data)
+        }
     }
     
     /// A helper function to read local file
@@ -75,6 +83,31 @@ class SenatorsViewController: UIViewController {
         }
     }
     
+    /// A segment controller to filter out senators based on party label
+    /// - Parameter sender: the segment controller
+    @IBAction func partySegment(_ sender: UISegmentedControl) {
+        
+        switch sender.selectedSegmentIndex {
+        case 1:
+            democartsList = self.senatorsList.filter {$0.party.rawValue == "Democrat"}
+            democrat = true
+            all = false
+            repub = false
+        case 2:
+            republicansList = self.senatorsList.filter {$0.party.rawValue == "Republican"}
+            repub = true
+            all = false
+            democrat = false
+        default:
+            print("all")
+            repub = false
+            democrat = false
+            all = true
+        }
+        self.tableView.reloadData()
+    }
+    
+    
 }
 
 extension SenatorsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -85,7 +118,20 @@ extension SenatorsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "senatorCell") as! SenatorCell
         
-        let senator = self.senatorsList[indexPath.row]
+        var senators = [Object]()
+        if all {
+            senators = senatorsList
+        } else if democrat {
+            senators = democartsList
+        }
+        else {
+            senators = republicansList
+        }
+        
+        //sort senators based on last name
+        senators.sort()
+        
+        let senator = senators[indexPath.row]
         cell.sentatorNameLabel.text = senator.person.name
         cell.partyLabel.text = senator.party.rawValue
         cell.departmentLabel.text = senator.objectDescription
@@ -95,8 +141,8 @@ extension SenatorsViewController: UITableViewDelegate, UITableViewDataSource {
         else if senator.party.rawValue == "Republican" {
             cell.senatorProfileImage.image = #imageLiteral(resourceName: "republican")
         }
+        
         cell.setShadow()
-
         return cell
     }
     
